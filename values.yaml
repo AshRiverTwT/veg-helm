@@ -1,0 +1,45 @@
+config:
+  name: veg-config
+  mongoUrl: "mongodb://mongodb-svc:27017/vegetable_order_app"
+  mongoDbName: "vegetable_order_app"
+
+storageClass:
+  name: veg-sc
+  provisioner: ebs.csi.aws.com
+  type: gp3
+  reclaimPolicy: Retain
+  volumeBindingMode: WaitForFirstConsumer
+
+pvc:
+  name: veg-mongodb-pvc
+  accessMode: ReadWriteOnce
+  size: 2Gi
+
+mongodb:
+  name: mongodb-deployment
+  label: mongodb
+  replicas: 4
+  image:
+    repository: mongo
+    tag: latest
+  service:
+    name: mongodb-svc
+    port: 27017
+    targetPort: 27017
+  persistence:
+    accessMode: ReadWriteOnce
+    size: 1Gi
+
+app:
+  name: vegetable-deployment
+  label: vegetable
+  containerName: vegetable
+  replicas: 5
+  image:
+    repository: bhagwat07/vegetable-app
+    tag: v2.1.0
+  service:
+    name: vegetable-service
+    type: LoadBalancer
+    port: 80
+    targetPort: 3000

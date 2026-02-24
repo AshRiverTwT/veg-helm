@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.config.name }}
+  namespace: {{ .Release.Namespace }}
+data:
+  MONGO_URL: {{ .Values.config.mongoUrl | quote }}
+  MONGO_INITDB_DATABASE: {{ .Values.config.mongoDbName | quote }}
