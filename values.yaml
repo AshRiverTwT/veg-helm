@@ -26,6 +26,7 @@ mongodb:
     name: mongodb-svc
     port: 27017
     targetPort: 27017
+    clusterIP: None
   persistence:
     accessMode: ReadWriteOnce
     size: 1Gi
@@ -36,7 +37,7 @@ app:
   containerName: vegetable
   replicas: 5
   image:
-    repository: bhagwat07/vegetable-app
+    repository: kalyantwt/vegetable-app
     tag: v2.1.0
   service:
     name: vegetable-service
