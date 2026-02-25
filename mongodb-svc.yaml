@@ -10,4 +10,4 @@ spec:
     - port: {{ .Values.mongodb.service.port }}
       targetPort: {{ .Values.mongodb.service.targetPort }}
       protocol: TCP
-  clusterIP: None
+  clusterIP: {{ Values.mongo.service.clusterIP}}
